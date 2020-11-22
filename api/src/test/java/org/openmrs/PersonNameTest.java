@@ -366,4 +366,12 @@ public class PersonNameTest {
 		Assert.assertEquals(pn.getFullName(), "Sr. Taylor Bob Mark");
 	}
 	
+	@Test
+	public void sanitizeName_shouldReturnTrueOnlyIftheHTMLIsEscaped() {
+		final String givenName = "<script>alert(1);</script>";
+		final String sanitizedGivenName = "&lt;script&gt;alert(1);&lt;/script&gt;";
+		PersonName pn = new PersonName(givenName, "Adam", "Pens");
+		pn.sanitizeName();
+		Assert.assertEquals(pn.getGivenName(), sanitizedGivenName);
+	}
 }

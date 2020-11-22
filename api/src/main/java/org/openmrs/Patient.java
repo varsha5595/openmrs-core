@@ -12,6 +12,7 @@ package org.openmrs;
 import org.hibernate.annotations.SortNatural;
 import org.hibernate.search.annotations.ContainedIn;
 import org.hibernate.search.annotations.Field;
+import org.apache.commons.lang.StringEscapeUtils;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
@@ -112,6 +113,12 @@ public class Patient extends Person {
 			newIdentifiers.add(identifierClone);
 		}
 		this.identifiers = newIdentifiers;
+	}
+	
+	public void sanitizeName() {
+		for (PersonName name: getNames()) {
+			name.sanitizeName();
+		}
 	}
 	
 	// Property accessors

@@ -18,6 +18,8 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang.StringEscapeUtils;
+import org.owasp.encoder.Encode;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Boost;
@@ -114,6 +116,10 @@ public class PersonName extends BaseChangeableOpenmrsData implements java.io.Ser
 		this.givenName = givenName;
 		this.middleName = middleName;
 		this.familyName = familyName;
+	}
+	
+	public void sanitizeName() {
+		 this.givenName = StringEscapeUtils.escapeHtml(this.givenName);
 	}
 	
 	/**
